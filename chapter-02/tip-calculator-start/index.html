@@ -26,12 +26,38 @@
   <meta name="theme-color" content="#ffffff">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
+  <link rel="manifest" href="app.webmanifest">
+
+<script>
+  // does the browser support service workers?
+  if ('serviceWorker' in navigator) {
+    // then register our service worker
+    navigator.serviceWorker.register('./sw.js')
+      .then(function (reg) {
+        // display success message
+        console.log(`Service worker registration (Scope: ${reg.scope})`);
+      })
+      .catch(function (error) {
+        // display an error messgae
+        console.log(`Service Worker Error (${error})`);
+      });
+    } else {
+      // happens when the app isn't served over a TLS connection (HTTPS)
+      console.warn('Service Worker not available');
+    }
+  </script>
+
+
 </head>
 
 <body>
   <!--[if IE]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
+
+    <div id="installButtonDiv">
+      <button id="installButton">Install</button>
+    </div>
 
   <div id='pageLogo'></div>
   <h1>Tip Calculator</h1>
